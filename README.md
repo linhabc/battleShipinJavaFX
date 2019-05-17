@@ -1,2 +1,2 @@
 # Battleship
-Implementation of classic battleship game
+midterm project for java oop class
