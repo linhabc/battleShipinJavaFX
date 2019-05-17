@@ -1,4 +1,4 @@
-package com.almasb.battleship;
+package com.midtermProject.battleship;
 
 import javafx.scene.Parent;
 

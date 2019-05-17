@@ -1,4 +1,4 @@
-package com.almasb.battleship;
+package com.midtermProject.battleship;
 
 import java.util.ArrayList;
 import java.util.List;
