@@ -12,8 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import com.almasb.battleship.Board.Cell;
-
 public class BattleshipMain extends Application {
 
     private boolean running = false;
@@ -47,7 +45,7 @@ public class BattleshipMain extends Application {
             }
 
             if (enemyTurn)
-                enemyMove();
+                Ai.enemyMove(enemyTurn, playerBoard);
         });
 
         playerBoard = new Board(false, event -> {
@@ -70,23 +68,23 @@ public class BattleshipMain extends Application {
         return root;
     }
 
-    private void enemyMove() {
-        while (enemyTurn) {
-            int x = random.nextInt(10);
-            int y = random.nextInt(10);
-
-            Cell cell = playerBoard.getCell(x, y);
-            if (cell.wasShot)
-                continue;
-
-            enemyTurn = cell.shoot();
-
-            if (playerBoard.ships == 0) {
-                System.out.println("YOU LOSE");
-                System.exit(0);
-            }
-        }
-    }
+//    private void enemyMove() {
+//        while (enemyTurn) {
+//            int x = random.nextInt(10);
+//            int y = random.nextInt(10);
+//
+//            Cell cell = playerBoard.getCell(x, y);
+//            if (cell.wasShot)
+//                continue;
+//
+//            enemyTurn = cell.shoot();
+//
+//            if (playerBoard.ships == 0) {
+//                System.out.println("YOU LOSE");
+//                System.exit(0);
+//            }
+//        }
+//    }
 
     private void startGame() {
         // place enemy ships

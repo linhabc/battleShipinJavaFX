@@ -10,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class Board extends Parent {
     private VBox rows = new VBox();
@@ -138,36 +137,36 @@ public class Board extends Parent {
         return x >= 0 && x < 10 && y >= 0 && y < 10;
     }
 
-    public class Cell extends Rectangle {
-        public int x, y;
-        public Ship ship = null;
-        public boolean wasShot = false;
-
-        private Board board;
-
-        public Cell(int x, int y, Board board) {
-            super(30, 30);
-            this.x = x;
-            this.y = y;
-            this.board = board;
-            setFill(Color.LIGHTGRAY);
-            setStroke(Color.BLACK);
-        }
-
-        public boolean shoot() {
-            wasShot = true;
-            setFill(Color.BLACK);
-
-            if (ship != null) {
-                ship.hit();
-                setFill(Color.RED);
-                if (!ship.isAlive()) {
-                    board.ships--;
-                }
-                return true;
-            }
-
-            return false;
-        }
-    }
+//    public class Cell extends Rectangle {
+//        public int x, y;
+//        public Ship ship = null;
+//        public boolean wasShot = false;
+//
+//        private Board board;
+//
+//        public Cell(int x, int y, Board board) {
+//            super(30, 30);
+//            this.x = x;
+//            this.y = y;
+//            this.board = board;
+//            setFill(Color.LIGHTGRAY);
+//            setStroke(Color.BLACK);
+//        }
+//
+//        public boolean shoot() {
+//            wasShot = true;
+//            setFill(Color.BLACK);
+//
+//            if (ship != null) {
+//                ship.hit();
+//                setFill(Color.RED);
+//                if (!ship.isAlive()) {
+//                    board.ships--;
+//                }
+//                return true;
+//            }
+//
+//            return false;
+//        }
+//    }
 }
