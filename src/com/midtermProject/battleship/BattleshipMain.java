@@ -1,16 +1,30 @@
 package com.midtermProject.battleship;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 
 public class BattleshipMain extends Application {
 
@@ -25,10 +39,44 @@ public class BattleshipMain extends Application {
 
     private Parent createContent() {
         BorderPane root = new BorderPane();
+        // Add padding for playing scene
+        root.setPadding(new Insets(15, 15, 15, 15));
         root.setPrefSize(600, 800);
 
-        root.setRight(new Text("RIGHT SIDEBAR - CONTROLS"));
+        root.setTop(new Text("RIGHT SIDEBAR - CONTROLS"));
+        //Create a new button for pause
+        InputStream inputStream = getClass().getResourceAsStream("/pause-img.jpg");
+        Image image = new Image(inputStream, 30.0, 30.0, true, true);
+        ImageView imageView = new ImageView(image);
+        Button pauseButton = new Button("Pause");
+        pauseButton.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+        	
+        	@Override
+        	public void handle(ActionEvent event) {
+				try {
+					Parent settings_view_parent = FXMLLoader.load(getClass().getResource("SettingsView.fxml"));
+	        		Scene settings_view_scene = new Scene(settings_view_parent);
+//	        		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//	        		app_stage.hide();
+	        		Stage settings_stage = new Stage();
+	        		settings_stage.setTitle("Settings");
+	        		settings_stage.setScene(settings_view_scene);
+	        		settings_stage.initModality(Modality.APPLICATION_MODAL);
+	        		settings_stage.show();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        });
+        
+        pauseButton.setGraphic(imageView);
+        root.setRight(pauseButton);
+        BorderPane.setMargin(pauseButton, new Insets(10, 10, 10, 10));
 
+        
+        
+        
         enemyBoard = new Board(true, event -> {
             if (!running)
                 return;
@@ -68,6 +116,43 @@ public class BattleshipMain extends Application {
         return root;
     }
 
+    private Parent settingsScene() {
+    	VBox root = new VBox(10);
+    	//Horizontal box for sound
+    	HBox hboxSound = new HBox(5);
+
+    	//Turn on/off sound
+    	//ImageView
+    	InputStream inputStream = getClass().getResourceAsStream("/sound-img.png");
+    	Image soundImage = new Image(inputStream, 30, 20, true, true);
+    	ImageView soundImageView = new ImageView(soundImage);
+    	
+    	CheckBox soundCheckBox = new CheckBox();
+    	Label soundText = new Label("Sound");
+    	hboxSound.getChildren().addAll(soundImageView, soundCheckBox, soundText);
+    	hboxSound.setAlignment(Pos.CENTER);
+    	
+    	//HBox for reset score
+    	HBox hboxResetScore = new HBox(5);
+    	//Reset score button
+    	Button resetScoreBtn = new Button("Reset score");
+    	hboxResetScore.getChildren().add(resetScoreBtn);
+    	hboxResetScore.setAlignment(Pos.CENTER);
+
+    	//HBox for back
+    	HBox hboxBack = new HBox(5);
+    	//Reset score button
+    	Button backBtn = new Button("Back");
+    	hboxBack.getChildren().add(backBtn);
+    	hboxBack.setAlignment(Pos.CENTER);
+    	
+    	
+    	
+    	root.getChildren().addAll(hboxSound, hboxResetScore, hboxBack);
+    	
+    	return root;
+    }
+    
 //    private void enemyMove() {
 //        while (enemyTurn) {
 //            int x = random.nextInt(10);
@@ -109,6 +194,7 @@ public class BattleshipMain extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+//        System.out.println(primaryStage);
     }
 
     public static void main(String[] args) {
