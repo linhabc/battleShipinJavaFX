@@ -11,7 +11,7 @@ public class Ai {
 	static public int[] oneHittedPreviousMove = {-1,-1}; 	//{x,y}
     private static Random random = new Random();
 
-	public static void enemyMoveEasy(boolean enemyTurn, Board playerBoard) {
+	public static void enemyMove(boolean enemyTurn, Board playerBoard) {
         while (enemyTurn) {
             int x = random.nextInt(10);
             int y = random.nextInt(10);
