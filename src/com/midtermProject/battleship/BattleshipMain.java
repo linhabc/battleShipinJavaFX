@@ -25,7 +25,7 @@ public class BattleshipMain extends Application {
 
     private Parent createContent() {
         BorderPane root = new BorderPane();
-        root.setPrefSize(600, 800);
+        root.setPrefSize(600, 1000);
 
         root.setRight(new Text("RIGHT SIDEBAR - CONTROLS"));
 
