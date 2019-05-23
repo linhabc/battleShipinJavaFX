@@ -41,20 +41,27 @@ public class BattleshipMain extends Application {
     
     public static BorderPane root;
 
+    static boolean tickSoundCheckBox;
+    public static void storeTickSoundCheckBox(boolean _tickSoundCheckBox) {
+    	tickSoundCheckBox = _tickSoundCheckBox;
+        System.out.println("tickSoundCheckBox" + tickSoundCheckBox);
+    }
+    
     private Parent createContent() {
         root = new BorderPane();
         // Add padding for playing scene
         root.setPadding(new Insets(15, 15, 15, 15));
         root.setPrefSize(600, 800);
-        
+
         botDiff = new Label("Bot difficulty: Easy");
         
         root.setTop(botDiff);
         //Create a new button for pause
         InputStream inputStream = getClass().getResourceAsStream("pause-img.jpg");
+
         Image image = new Image(inputStream, 30.0, 30.0, true, true);
         ImageView imageView = new ImageView(image);
-        Button pauseButton = new Button("Pause");
+        Button pauseButton = new Button("Settings");
         pauseButton.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
         	
         	@Override
@@ -62,6 +69,9 @@ public class BattleshipMain extends Application {
 				try {
 					Parent settings_view_parent = FXMLLoader.load(getClass().getResource("SettingsView.fxml"));
 	        		Scene settings_view_scene = new Scene(settings_view_parent);
+	        		SettingsViewController settingsviewcontroller = new SettingsViewController();
+	        		settingsviewcontroller.loadTicketSoundCheckBox(tickSoundCheckBox);
+//	        		settingsviewcontroller.modifySoundCheckBox(tickSoundCheckBox);
 //	        		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 //	        		app_stage.hide();
 	        		Stage settings_stage = new Stage();
@@ -197,6 +207,7 @@ public class BattleshipMain extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        System.out.println("tickSoundCheckBox" + tickSoundCheckBox);
 //        System.out.println(primaryStage);
     }
 

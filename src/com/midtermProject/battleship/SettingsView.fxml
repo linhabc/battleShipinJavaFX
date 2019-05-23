@@ -12,7 +12,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <CheckBox mnemonicParsing="false" />
+                  <CheckBox fx:id="soundCheckBox" mnemonicParsing="false" onAction="#handleSoundCheckBox" />
                   <ImageView fitHeight="20.0" fitWidth="30.0">
                      <image>
                         <Image url="@../../../resources/sound-img.png" />
