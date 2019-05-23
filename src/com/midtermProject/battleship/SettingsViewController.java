@@ -9,8 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-
 import javafx.stage.Modality;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
@@ -19,38 +17,30 @@ public class SettingsViewController {
 
 	
 	@FXML
-	static public CheckBox soundCheckBox = new CheckBox();
-	static boolean tickSoundCheckBox;
+	static public Button soundButton;
+	static boolean tickSoundButton;
 	@FXML
 	private Button ResetScoreButton;
 	@FXML
 	private Button backButton;
 	
 
-    public void loadTicketSoundCheckBox(boolean _tickSoundCheckBox) {
-    	tickSoundCheckBox = _tickSoundCheckBox;
-        System.out.println("tickSoundCheckBox " + tickSoundCheckBox);
+    public void loadTicketSoundButton(boolean _tickSoundButton) {
+    	tickSoundButton = _tickSoundButton;
+        System.out.println("tickSoundCheckBox " + tickSoundButton);
     }
 	
 	@FXML
-	private void handleSoundCheckBox(ActionEvent event) {
+	private void handleSoundButton(ActionEvent event) {
 		System.out.println("Clicked sound check box");
-		System.out.println(soundCheckBox.isSelected());
-		AudioClip note = new AudioClip(this.getClass().getResource("/battleship.wav").toString());
-		if (soundCheckBox.isSelected() && tickSoundCheckBox == false) {
-			System.out.println("SoundCheckBox is selected");
-			tickSoundCheckBox = true;
+		AudioClip note = new AudioClip(this.getClass().getResource("/resources/battleship.wav").toString());
+		if (tickSoundButton == false) {
 			note.play();
+			tickSoundButton = true;
 		}
-		
-		else if (!soundCheckBox.isSelected()) {
-			System.out.println(soundCheckBox.isSelected());
+		else {
 			note.stop();
-			tickSoundCheckBox = false;
-		}
-		else if (tickSoundCheckBox == true) {
-			System.out.println("SoundCheckBox was selected");
-			soundCheckBox.setSelected(true);
+			tickSoundButton = false;
 		}
 	}
 	
@@ -64,7 +54,7 @@ public class SettingsViewController {
 //		System.out.println(settings_stage);
 //		app_stage.setScene(settings_view_scene);
 //		app_stage.show();
-		BattleshipMain.storeTickSoundCheckBox(tickSoundCheckBox);
+		BattleshipMain.storeTickSoundButton(tickSoundButton);
 	}
 	@FXML
 	private void handleDifficultyButton(ActionEvent event) throws IOException {

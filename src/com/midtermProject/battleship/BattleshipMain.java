@@ -13,7 +13,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,7 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.Node;
+import javafx.stage.WindowEvent;
 
 public class BattleshipMain extends Application {
 
@@ -41,10 +40,11 @@ public class BattleshipMain extends Application {
     
     public static BorderPane root;
 
-    static boolean tickSoundCheckBox;
-    public static void storeTickSoundCheckBox(boolean _tickSoundCheckBox) {
-    	tickSoundCheckBox = _tickSoundCheckBox;
-        System.out.println("tickSoundCheckBox" + tickSoundCheckBox);
+    static boolean tickSoundButton;
+    
+    public static void storeTickSoundButton(boolean _tickSoundButton) {
+    	tickSoundButton = _tickSoundButton;
+        System.out.println("tickSoundButton" + tickSoundButton);
     }
     
     private Parent createContent() {
@@ -57,7 +57,7 @@ public class BattleshipMain extends Application {
         
         root.setTop(botDiff);
         //Create a new button for pause
-        InputStream inputStream = getClass().getResourceAsStream("pause-img.jpg");
+        InputStream inputStream = this.getClass().getResourceAsStream("/resources/settings-img.jpeg");
 
         Image image = new Image(inputStream, 30.0, 30.0, true, true);
         ImageView imageView = new ImageView(image);
@@ -70,7 +70,7 @@ public class BattleshipMain extends Application {
 					Parent settings_view_parent = FXMLLoader.load(getClass().getResource("SettingsView.fxml"));
 	        		Scene settings_view_scene = new Scene(settings_view_parent);
 	        		SettingsViewController settingsviewcontroller = new SettingsViewController();
-	        		settingsviewcontroller.loadTicketSoundCheckBox(tickSoundCheckBox);
+	        		settingsviewcontroller.loadTicketSoundButton(tickSoundButton);
 //	        		settingsviewcontroller.modifySoundCheckBox(tickSoundCheckBox);
 //	        		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 //	        		app_stage.hide();
@@ -79,8 +79,13 @@ public class BattleshipMain extends Application {
 	        		settings_stage.setScene(settings_view_scene);
 	        		settings_stage.initModality(Modality.APPLICATION_MODAL);
 	        		settings_stage.show();
+	        		settings_stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	        	          public void handle(WindowEvent we) {
+	        	              System.out.println("Stage is closing");
+	        	              BattleshipMain.storeTickSoundButton(SettingsViewController.tickSoundButton);
+	        	          }
+	        	    });    
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
         	}
@@ -147,42 +152,6 @@ public class BattleshipMain extends Application {
         return root;
     }
 
-    private Parent settingsScene() {
-    	VBox root = new VBox(10);
-    	//Horizontal box for sound
-    	HBox hboxSound = new HBox(5);
-
-    	//Turn on/off sound
-    	//ImageView
-    	InputStream inputStream = getClass().getResourceAsStream("sound-img.png");
-    	Image soundImage = new Image(inputStream, 30, 20, true, true);
-    	ImageView soundImageView = new ImageView(soundImage);
-    	
-    	CheckBox soundCheckBox = new CheckBox();
-    	Label soundText = new Label("Sound");
-    	hboxSound.getChildren().addAll(soundImageView, soundCheckBox, soundText);
-    	hboxSound.setAlignment(Pos.CENTER);
-    	
-    	//HBox for reset score
-    	HBox hboxResetScore = new HBox(5);
-    	//Reset score button
-    	Button resetScoreBtn = new Button("Reset score");
-    	hboxResetScore.getChildren().add(resetScoreBtn);
-    	hboxResetScore.setAlignment(Pos.CENTER);
-
-    	//HBox for back
-    	HBox hboxBack = new HBox(5);
-    	//Reset score button
-    	Button backBtn = new Button("Back");
-    	hboxBack.getChildren().add(backBtn);
-    	hboxBack.setAlignment(Pos.CENTER);
-    	
-    	
-    	
-    	root.getChildren().addAll(hboxSound, hboxResetScore, hboxBack);
-    	
-    	return root;
-    }
 
     private void startGame() {
         // place enemy ships
@@ -207,7 +176,7 @@ public class BattleshipMain extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-        System.out.println("tickSoundCheckBox" + tickSoundCheckBox);
+        System.out.println("tickSoundButton" + tickSoundButton);
 //        System.out.println(primaryStage);
     }
 
