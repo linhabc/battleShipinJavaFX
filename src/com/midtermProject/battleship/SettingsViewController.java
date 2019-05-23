@@ -32,7 +32,7 @@ public class SettingsViewController {
 	
 	@FXML
 	private void handleSoundButton(ActionEvent event) {
-		System.out.println("Clicked sound check box");
+		System.out.println("Clicked sound button");
 		AudioClip note = new AudioClip(this.getClass().getResource("/resources/battleship.wav").toString());
 		if (tickSoundButton == false) {
 			note.play();
