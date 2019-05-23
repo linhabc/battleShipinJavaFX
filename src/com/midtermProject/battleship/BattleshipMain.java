@@ -37,6 +37,12 @@ public class BattleshipMain extends Application {
 
     private Random random = new Random();
 
+    static boolean tickSoundCheckBox;
+    public static void storeTickSoundCheckBox(boolean _tickSoundCheckBox) {
+    	tickSoundCheckBox = _tickSoundCheckBox;
+        System.out.println("tickSoundCheckBox" + tickSoundCheckBox);
+    }
+    
     private Parent createContent() {
         BorderPane root = new BorderPane();
         // Add padding for playing scene
@@ -44,11 +50,18 @@ public class BattleshipMain extends Application {
         root.setPrefSize(600, 800);
 
         root.setTop(new Text("RIGHT SIDEBAR - CONTROLS"));
+        CheckBox btn = new CheckBox("Settings");
+        int a = 1;
+        if (a == 0) {
+            btn.setSelected(true);
+        	
+        }
+        root.setLeft(btn);
         //Create a new button for pause
-        InputStream inputStream = getClass().getResourceAsStream("/pause-img.jpg");
+        InputStream inputStream = getClass().getResourceAsStream("/settings-img.jpeg");
         Image image = new Image(inputStream, 30.0, 30.0, true, true);
         ImageView imageView = new ImageView(image);
-        Button pauseButton = new Button("Pause");
+        Button pauseButton = new Button("Settings");
         pauseButton.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
         	
         	@Override
@@ -56,6 +69,9 @@ public class BattleshipMain extends Application {
 				try {
 					Parent settings_view_parent = FXMLLoader.load(getClass().getResource("SettingsView.fxml"));
 	        		Scene settings_view_scene = new Scene(settings_view_parent);
+	        		SettingsViewController settingsviewcontroller = new SettingsViewController();
+	        		settingsviewcontroller.loadTicketSoundCheckBox(tickSoundCheckBox);
+//	        		settingsviewcontroller.modifySoundCheckBox(tickSoundCheckBox);
 //	        		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 //	        		app_stage.hide();
 	        		Stage settings_stage = new Stage();
@@ -194,6 +210,7 @@ public class BattleshipMain extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        System.out.println("tickSoundCheckBox" + tickSoundCheckBox);
 //        System.out.println(primaryStage);
     }
 
