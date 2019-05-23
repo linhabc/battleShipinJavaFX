@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SettingsViewController {
@@ -32,5 +33,15 @@ public class SettingsViewController {
 //		System.out.println(settings_stage);
 //		app_stage.setScene(settings_view_scene);
 //		app_stage.show();
+	}
+	@FXML
+	private void handleDifficultyButton(ActionEvent event) throws IOException {
+		Parent difficulties_view_parent = FXMLLoader.load(getClass().getResource("HandleDifficulty.fxml"));
+		Scene difficulties_view_scene = new Scene(difficulties_view_parent);
+		Stage settings_stage = new Stage();
+		settings_stage.setTitle("Difficulties");
+		settings_stage.setScene(difficulties_view_scene);
+		settings_stage.initModality(Modality.APPLICATION_MODAL);
+		settings_stage.show();
 	}
 }

@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class Ai {
 	
+	public static int botDifficult = Ai.EASY;
+	
 	static final int EASY = 1;
 	static final int MEDIUM = 2;
 	static final int HARD = 3;
@@ -13,7 +15,7 @@ public class Ai {
     private static Random random = new Random();
 
 	@SuppressWarnings("unused")
-	public static void enemyMove(boolean enemyTurn, Board playerBoard) {
+	public static void enemyMoveEasy(boolean enemyTurn, Board playerBoard) {
         while (enemyTurn) {
             int x = random.nextInt(10);
             int y = random.nextInt(10);

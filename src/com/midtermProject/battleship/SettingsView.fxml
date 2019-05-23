@@ -28,6 +28,11 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleDifficultyButton" text="Difficulty setting" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
                   <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
                </children>
             </HBox>

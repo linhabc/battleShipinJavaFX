@@ -30,22 +30,28 @@ public class BattleshipMain extends Application {
 
     private boolean running = false;
     private Board enemyBoard, playerBoard;
-
+    
+    public static Label botDiff;
+    
     private int shipsToPlace = 5;
 
     private boolean enemyTurn = false;
 
     private Random random = new Random();
+    
+    public static BorderPane root;
 
     private Parent createContent() {
-        BorderPane root = new BorderPane();
+        root = new BorderPane();
         // Add padding for playing scene
         root.setPadding(new Insets(15, 15, 15, 15));
         root.setPrefSize(600, 800);
-
-        root.setTop(new Text("RIGHT SIDEBAR - CONTROLS"));
+        
+        botDiff = new Label("Bot difficulty: Easy");
+        
+        root.setTop(botDiff);
         //Create a new button for pause
-        InputStream inputStream = getClass().getResourceAsStream("/pause-img.jpg");
+        InputStream inputStream = getClass().getResourceAsStream("pause-img.jpg");
         Image image = new Image(inputStream, 30.0, 30.0, true, true);
         ImageView imageView = new ImageView(image);
         Button pauseButton = new Button("Pause");
@@ -92,8 +98,14 @@ public class BattleshipMain extends Application {
                 System.exit(0);
             }
 
-            if (enemyTurn)
-                Ai.enemyMove(enemyTurn, playerBoard);
+            if (enemyTurn) {
+            	if(Ai.botDifficult==Ai.EASY)
+            		Ai.enemyMoveEasy(enemyTurn, playerBoard);
+            	else if(Ai.botDifficult==Ai.MEDIUM)
+            		Ai.enemyMoveMedium(enemyTurn, playerBoard);
+            	else if(Ai.botDifficult==Ai.HARD)
+            		Ai.enemyMoveHard(enemyTurn, playerBoard);
+            }
         });
 
         playerBoard = new Board(false, event -> {
@@ -108,10 +120,19 @@ public class BattleshipMain extends Application {
             }
         });
 
-        VBox vbox = new VBox(50, enemyBoard, playerBoard);
-        vbox.setAlignment(Pos.CENTER);
+        Text player = new Text("YOU");
+        VBox playerBox = new VBox(50,playerBoard,player);
+        VBox.setMargin(player,new Insets(0,0,0,150));
 
-        root.setCenter(vbox);
+        Text enemy = new Text("ENEMY");
+        VBox enemyBox = new VBox(50,enemyBoard,enemy);
+        VBox.setMargin(enemy,new Insets(0,0,0,150));
+
+        HBox hbox = new HBox(50, playerBox, enemyBox);
+        hbox.setAlignment(Pos.CENTER);
+        BorderPane.setMargin(hbox,new Insets(100,0,0,0));
+
+        root.setCenter(hbox);
 
         return root;
     }
@@ -123,7 +144,7 @@ public class BattleshipMain extends Application {
 
     	//Turn on/off sound
     	//ImageView
-    	InputStream inputStream = getClass().getResourceAsStream("/sound-img.png");
+    	InputStream inputStream = getClass().getResourceAsStream("sound-img.png");
     	Image soundImage = new Image(inputStream, 30, 20, true, true);
     	ImageView soundImageView = new ImageView(soundImage);
     	
@@ -152,24 +173,6 @@ public class BattleshipMain extends Application {
     	
     	return root;
     }
-    
-//    private void enemyMove() {
-//        while (enemyTurn) {
-//            int x = random.nextInt(10);
-//            int y = random.nextInt(10);
-//
-//            Cell cell = playerBoard.getCell(x, y);
-//            if (cell.wasShot)
-//                continue;
-//
-//            enemyTurn = cell.shoot();
-//
-//            if (playerBoard.ships == 0) {
-//                System.out.println("YOU LOSE");
-//                System.exit(0);
-//            }
-//        }
-//    }
 
     private void startGame() {
         // place enemy ships
