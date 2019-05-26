@@ -44,7 +44,7 @@ public class BattleshipMain extends Application {
     public static Label winLoseText;
     public static Label LoseText;
     
-//    private int shipsToPlace = 6;
+    private int shipLefttoPlace = 5;
     private int[] shipsToPlace = {5, 4, 3, 3, 2};
     private int i = 0;
 
@@ -135,13 +135,13 @@ public class BattleshipMain extends Application {
 
         botDiff = new Label("Bot difficulty: Easy");
         BattleshipMain.root.setBottom(new Label("Place 5 ship to play, right click for horizontal, left click for vertical ship."));
-        winLoseText = new Label();
-        winLoseText.setVisible(false);
-        HBox hBoxTop = new HBox(50, botDiff, winLoseText);
+//        winLoseText = new Label();
+//        winLoseText.setVisible(false);
+//        HBox hBoxTop = new HBox(50, botDiff, winLoseText);
 //        WinText = new Label("YOU WIN! Congratulation!");
 //        LoseText = new Label("YOU LOSE! Don't worry!");
         
-        root.setTop(hBoxTop);
+        root.setTop(botDiff);
         //Create a new button for pause
         InputStream inputStream = this.getClass().getResourceAsStream("/resources/settings-img.jpeg");
 
@@ -224,8 +224,8 @@ public class BattleshipMain extends Application {
 
             if (enemyBoard.ships == 0) {
                 System.out.println("YOU WIN! Congratulation!");
-                winLoseText.setText("YOU WIN! Congratulation!");
-                winLoseText.setVisible(true);
+                winLoseText = new Label("YOU WIN! Congratulation!");
+                root.setCenter(BattleshipMain.winLoseText);
 //                System.exit(0);
             }
 
@@ -247,7 +247,7 @@ public class BattleshipMain extends Application {
                 	BattleshipMain.root.setBottom(new Label("HIT ENEMY NOW!!!!"));
                     startGame();
                 }else {
-                	BattleshipMain.root.setBottom(new Label("Place "+shipsToPlace[i]+" more ship to play"));
+                	BattleshipMain.root.setBottom(new Label("Place "+(--shipLefttoPlace)+" more ship to play"));
                 }
             }
         });

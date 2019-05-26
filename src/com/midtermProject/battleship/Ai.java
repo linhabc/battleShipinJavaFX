@@ -3,6 +3,8 @@ package com.midtermProject.battleship;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import javafx.scene.control.Label;
+
 public class Ai {
 	
 	public static int botDifficult = Ai.EASY;
@@ -25,8 +27,8 @@ public class Ai {
 
             if (playerBoard.ships == 0) {
                 System.out.println("YOU LOSE! Don't worry!");
-                BattleshipMain.winLoseText.setText("YOU LOSE! Don't worry!");
-                BattleshipMain.winLoseText.setVisible(true);
+                BattleshipMain.winLoseText = new Label("YOU LOSE! Don't worry!");
+                BattleshipMain.root.setCenter(BattleshipMain.winLoseText);
 //                System.exit(0);
             }
         }
@@ -93,8 +95,8 @@ public class Ai {
 
             if (playerBoard.ships == 0) {
                 System.out.println("YOU LOSE! Don't worry!");
-                BattleshipMain.winLoseText.setText("YOU LOSE! Don't worry!");
-                BattleshipMain.winLoseText.setVisible(true);
+                BattleshipMain.winLoseText = new Label("YOU LOSE! Don't worry!");
+                BattleshipMain.root.setCenter(BattleshipMain.winLoseText);
 //                System.exit(0);
             }
         }
