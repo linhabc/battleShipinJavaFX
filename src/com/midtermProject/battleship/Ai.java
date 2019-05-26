@@ -26,8 +26,10 @@ public class Ai {
             enemyTurn = cell.shoot();
 
             if (playerBoard.ships == 0) {
-                System.out.println("YOU LOSE");
-                System.exit(0);
+                System.out.println("YOU LOSE! Don't worry!");
+                BattleshipMain.winLoseText.setText("YOU LOSE! Don't worry!");
+                BattleshipMain.winLoseText.setVisible(true);
+//                System.exit(0);
             }
         }
     }
@@ -92,8 +94,10 @@ public class Ai {
             enemyTurn = cell.shoot();
 
             if (playerBoard.ships == 0) {
-                System.out.println("YOU LOSE");
-                System.exit(0);
+                System.out.println("YOU LOSE! Don't worry!");
+                BattleshipMain.winLoseText.setText("YOU LOSE! Don't worry!");
+                BattleshipMain.winLoseText.setVisible(true);
+//                System.exit(0);
             }
         }
     }
@@ -189,7 +193,9 @@ public class Ai {
            enemyTurn = cell.shoot();
 
 	        if (playerBoard.ships == 0) {
-	            System.out.println("YOU LOSE");
+                System.out.println("YOU LOSE! Don't worry!");
+                BattleshipMain.winLoseText.setText("YOU LOSE! Don't worry!");
+                BattleshipMain.winLoseText.setVisible(true);
 //	            System.exit(0);
 	        }
         }

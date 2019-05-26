@@ -12,17 +12,12 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="soundButton" mnemonicParsing="false" onAction="#handleSoundButton" text="Sound" />
-                  <ImageView fitHeight="25.0" fitWidth="35.0">
-                     <image>
-                        <Image url="@../../../resources/sound-img.png" />
-                     </image>
-                  </ImageView>
+                  <Button fx:id="backgroundSoundButton" mnemonicParsing="false" onAction="#handleBackgroundSoundButton" text="Background Sound" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Reset score" />
+                  <Button fx:id="animationSoundButton" mnemonicParsing="false" onAction="#handleAnimationSoundButton" text="Animation Sound" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

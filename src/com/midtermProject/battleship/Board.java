@@ -1,21 +1,27 @@
 package com.midtermProject.battleship;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 
 public class Board extends Parent {
     private VBox rows = new VBox();
     private boolean enemy = false;
     public int ships = 5;
-
+    AudioClip placeShipSound;
+    
+    
     public Board(boolean enemy, EventHandler<? super MouseEvent> handler) {
         this.enemy = enemy;
         for (int y = 0; y < 10; y++) {
@@ -40,28 +46,48 @@ public class Board extends Parent {
                 for (int i = y; i < y + length; i++) {
                     Cell cell = getCell(x, i);
                     cell.ship = ship;
-                    if (!enemy) {
-                        cell.setFill(Color.WHITE);
-                        cell.setStroke(Color.GREEN);
+                    
+                    if (i == y) {
+                        Image img = new Image(new File("src/resources/carrier-vertical-0.png").toURI().toString());
+                        cell.setFill(new ImagePattern(img));
+                    } else if (i == y + length - 1) {
+                        Image img = new Image(new File("src/resources/carrier-vertical-4.png").toURI().toString());
+                        cell.setFill(new ImagePattern(img));
+                    } else {
+                        Image img = new Image(new File("src/resources/carrier-vertical-1.png").toURI().toString());
+                        cell.setFill(new ImagePattern(img));
                     }
+                    
                 }
-            }
-            else {
+            } else {
                 for (int i = x; i < x + length; i++) {
                     Cell cell = getCell(i, y);
                     cell.ship = ship;
-                    if (!enemy) {
-                        cell.setFill(Color.WHITE);
-                        cell.setStroke(Color.GREEN);
+                    
+                    
+                    if (i == x) {
+                        Image img = new Image(new File("src/resources/carrier-horizontal-0.png").toURI().toString());
+                        cell.setFill(new ImagePattern(img));
+                    } else if (i == x + length - 1) {
+                        Image img = new Image(new File("src/resources/carrier-horizontal-4.png").toURI().toString());
+                        cell.setFill(new ImagePattern(img));
+                    } else {
+                        Image img = new Image(new File("src/resources/carrier-horizontal-2.png").toURI().toString());
+                        cell.setFill(new ImagePattern(img));
                     }
+                    
+                    
                 }
             }
-
+            placeShipSound = new AudioClip(this.getClass().getResource("/resources/ship_placed.wav").toString());
+            if (BattleshipMain.tickAnimationSoundButton == true) {
+                placeShipSound.play();
+            }
             return true;
         }
 
         return false;
-    }
+        }
 
     public Cell getCell(int x, int y) {
         return (Cell)((HBox)rows.getChildren().get(y)).getChildren().get(x);
