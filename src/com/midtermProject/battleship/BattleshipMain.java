@@ -134,6 +134,7 @@ public class BattleshipMain extends Application {
         root.setPrefSize(600, 800);
 
         botDiff = new Label("Bot difficulty: Easy");
+        BattleshipMain.root.setBottom(new Label("Place 5 ship to play, right click for horizontal, left click for vertical ship."));
         winLoseText = new Label();
         winLoseText.setVisible(false);
         HBox hBoxTop = new HBox(50, botDiff, winLoseText);
@@ -231,10 +232,8 @@ public class BattleshipMain extends Application {
             if (enemyTurn) {
             	if(Ai.botDifficult==Ai.EASY)
             		Ai.enemyMoveEasy(enemyTurn, playerBoard);
-            	else if(Ai.botDifficult==Ai.MEDIUM)
-            		Ai.enemyMoveMedium(enemyTurn, playerBoard);
-            	else if(Ai.botDifficult==Ai.HARD)
-            		Ai.enemyMoveHard(enemyTurn, playerBoard);
+            	else if(Ai.botDifficult==Ai.NOTEASY)
+            		Ai.enemyMoveNotEasy(enemyTurn, playerBoard);
             }
         });
 
@@ -245,7 +244,10 @@ public class BattleshipMain extends Application {
             Cell cell = (Cell) event.getSource();
             if (playerBoard.placeShip(new Ship(shipsToPlace[i], event.getButton() == MouseButton.PRIMARY), cell.x, cell.y)) {
                 if (shipsToPlace[i++] == 2) {
+                	BattleshipMain.root.setBottom(new Label("HIT ENEMY NOW!!!!"));
                     startGame();
+                }else {
+                	BattleshipMain.root.setBottom(new Label("Place "+shipsToPlace[i]+" more ship to play"));
                 }
             }
         });

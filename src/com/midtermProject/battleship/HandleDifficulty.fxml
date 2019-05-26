@@ -16,12 +16,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleMediumButton" text="Medium" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleHardButton" text="Hard" />
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleMediumButton" text="Not easy" />
                </children>
             </HBox>
       </VBox>
